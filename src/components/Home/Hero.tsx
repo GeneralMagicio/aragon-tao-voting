@@ -11,13 +11,10 @@ export function HomeHero() {
       </div>
       <div className="text-[22px] md:text-3xl text-gray text-center leading-10 mx-5 mt-10 2xl:mx-80 xl:mx-72 lg:mx-32 md:mx-12">
         <p>
-          The Aragon Community are working on building the safest, most
-          effective DAO structure to run the Aragon Network DAO (AN DAO).
+          The Aragon Community are working on building the safest, most effective DAO structure to run the Aragon Network DAO (AN DAO).
         </p>
         <p className="mt-11 mb-16">
-          As AN DAO evolves so should its configuration. We invite you to help
-          configure and debate AN DAO voting parameters and to collaborate on
-          the governance design of our future DAO.
+          As AN DAO evolves so should its configuration. We invite you to help configure and debate AN DAO voting parameters and to collaborate on the governance design of our future DAO.
         </p>
       </div>
       <Link href="/about">
