@@ -9,6 +9,15 @@ export default async function handler(
     res.status(405).end(`Method ${req.method} Not Allowed`)
   }
   const data = req.body
+  const requiredParameters = [
+    'imageInfo',
+    'proposalInfo',
+    'taoVoting',
+    'disputableVoting',
+  ]
+  if (!requiredParameters.every((item) => data.hasOwnProperty(item))) {
+    res.status(406).end('The proposal submission data is not complete.')
+  }
   const issueGenerator = new IssueGenerator(
     data.imageInfo,
     data.proposalInfo,

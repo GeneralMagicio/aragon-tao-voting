@@ -19,9 +19,7 @@ export default async function handler(
     function (err: Error, proposal: IProposalDBSchema) {
       if (err || proposal === null) {
         console.log(err)
-        res.status(406).json({
-          data: 'There is no proposal in the database with the provided issue number.',
-        })
+        res.status(406).end('There is no proposal in the database with the provided issue number.')
       } else {
         const { issueNumber, proposalInfo, taoVoting, disputableVoting } =
           proposal
