@@ -7,6 +7,8 @@ import { DisputableVoating } from './DisputableVoating'
 import Link from 'next/link'
 import { ChartToogle } from './Chart/ChartToogle'
 import ChartContainer from './Chart/ChartContainer'
+import toast, { Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
 
 export function Voting() {
   const barChart = useTaoVoting()
@@ -121,6 +123,24 @@ export function Voting() {
     },
   ]
 
+  useEffect(() => {
+    if (barChart.error === true) {
+      toast('Something went wrong!', {
+        duration: 3000,
+        position: 'bottom-center',
+        style: {
+          background: '#3164FA',
+          color: '#ffff',
+        },
+        className: 'font-over font-bold',
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      })
+    }
+  }, [barChart.error])
+
   return (
     <>
       <div className="min-h-screen h-full bg-dash">
@@ -167,6 +187,7 @@ export function Voting() {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   )
 }
