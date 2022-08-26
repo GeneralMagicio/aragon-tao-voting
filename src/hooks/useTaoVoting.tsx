@@ -37,6 +37,8 @@ type TaoVotingContextType = {
   isReviewProposal: boolean
   isChartOpen: boolean
   setIsChartOpen: Dispatch<SetStateAction<boolean>>
+  error: boolean
+  setError: Dispatch<SetStateAction<boolean>>
 }
 
 const initialContext: TaoVotingContextType = {
@@ -70,6 +72,10 @@ const initialContext: TaoVotingContextType = {
   setIsChartOpen: (): void => {
     throw new Error('setisChartOpen must be overridden')
   },
+  error: false,
+  setError: (): void => {
+    throw new Error('setError must be overridden')
+  },
 }
 
 const TaoVotingContext = createContext<TaoVotingContextType>(initialContext)
@@ -82,6 +88,7 @@ function TaoVotingProvider({ children }: AppTaoVotingContextProps) {
   const [params, setContext] = useState<TaoVotingContextType>(initialContext)
   const [isReviewProposal, setReviewProposal] = useState<boolean>(false)
   const [isChartOpen, setIsChartOpen] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
   const {
     supportRequired,
     minimumQuorum,
@@ -138,7 +145,9 @@ function TaoVotingProvider({ children }: AppTaoVotingContextProps) {
             ...output.disputableVoting,
           })
         })
-        .catch((e) => console.log(e))
+        .catch(() => {
+          setError(true)
+        })
     }, 500)
     return () => clearTimeout(typeTimeOut)
   }, [
@@ -155,7 +164,15 @@ function TaoVotingProvider({ children }: AppTaoVotingContextProps) {
   ])
 
   return (
-    <TaoVotingContext.Provider value={{ ...params, isReviewProposal, isChartOpen, setIsChartOpen }}>
+    <TaoVotingContext.Provider
+      value={{
+        ...params,
+        isReviewProposal,
+        isChartOpen,
+        setIsChartOpen,
+        error,
+      }}
+    >
       {children}
     </TaoVotingContext.Provider>
   )
