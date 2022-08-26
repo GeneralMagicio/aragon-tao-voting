@@ -35,6 +35,7 @@ export class IssueGenerator {
     const taoVotingOutput = await taoVoting.getData()
     const taoVotingInput = taoVoting.taoVoting
     const disputableVotingInput = taoVoting.disputableVoting
+    const deployedURL = process.env.DEPLOYED_URL || ''
 
     const { timeVote, timeReview, timeExecute } = taoVotingOutput.timelineData
     const { proposalDeposit, challengeDeposit, setlementPeriod } =
@@ -82,7 +83,7 @@ ${this.proposalInfo.strategy}
     }) |
 | Settlement Period | ${setlementPeriod} day(s)           |
 
-### [FORK THIS PROPOSAL](https://aragon-tao-voting-five.vercel.app/import/${issueNumber}) (link)
+### [FORK THIS PROPOSAL](${deployedURL}/import/${issueNumber}) (link)
 `
     return outputIssue
   }
