@@ -21,7 +21,7 @@ function checkMissinEnvVars(): ErrorMessage {
     'IMGUR_CLIENT_ID',
     'DEPLOYED_URL',
   ]
-  let missingEnvVars: string[] = []
+  const missingEnvVars: string[] = []
   requiredEnvVars.map((envVar) => {
     if (process.env[envVar] === undefined) {
       missingEnvVars.push(envVar)
