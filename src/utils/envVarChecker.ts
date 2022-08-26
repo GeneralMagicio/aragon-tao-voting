@@ -19,6 +19,7 @@ function checkMissinEnvVars(): ErrorMessage {
     'GITHUB_REPO',
     'DB_CONNECTION',
     'IMGUR_CLIENT_ID',
+    'DEPLOYED_URL',
   ]
   let missingEnvVars: string[] = []
   requiredEnvVars.map((envVar) => {
