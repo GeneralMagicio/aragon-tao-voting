@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { IssueGenerator } from '../../models/issueGenerator'
+import envVarChecker from '../../utils/envVarChecker'
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,7 +27,11 @@ export default async function handler(
   )
   const response = await issueGenerator.createIssue()
   const result = await response.json()
-  res.status(200).json({ data: { issueUrl: result.html_url } })
+  const envVarCheckerResp = await envVarChecker()
+  if (envVarCheckerResp.statusCode === 200) {
+    res.status(200).json({ data: { issueUrl: result.html_url } })
+  }
+  res.status(envVarCheckerResp.statusCode).end(envVarCheckerResp.message)
 }
 
 export const config = {
